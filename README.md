@@ -41,25 +41,26 @@ sudo make install prefix=/wherever/you/want
 
 Click to download `pl` for your system:
 
-  - [`x86_64`](https://?????foo)
-    `wget https://??????`
+  - [`x86_64`](https://?????foo)<br>
+    `wget https://github.com/WestleyR/print-line/raw/master/pre-compiled/x86_64/pl
 
-  - [`darwin`](https://????)
+  - [`darwin`](https://????)<br>
     `wget https://?????`
 
-  - [`armv7l`](https://?????)
+  - [`armv7l`](https://?????)<br>
     `wget https://??????`
 
-  - [manpage](https://????)
+  - [manpage](https://????)<br>
     `wget https://?????`
 
 
 Then to install:
 
 ```bash
-sudo mv pl /usr/bin/  # or wherever you want to install it
+INSTALL_TO="/usr/bin"  # or wherever you want to install it
+sudo mv pl ${INSTALL_TO} && sudo chmod +x ${INSTALL_TO}/pl
 
-sudo mv pl.1.gz /man/
+sudo mv pl.1.gz /usr/share/man/man1/
 ```
 
 
