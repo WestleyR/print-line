@@ -1,12 +1,12 @@
-# Created by: Westley K
+# Created by: WestleyR
 # email: westleyr@nym.hush.com
-# Date: Jan 7, 2018
-# https://github.com/WestleyR/????
-# Version-1.0.0
+# Date: Jan 8, 2018
+# https://github.com/WestleyR/print-line
+# Version-1.0.1
 #
 # The Clear BSD License
 #
-# Copyright (c) 2018 WestleyR
+# Copyright (c) 2019 WestleyR
 # All rights reserved.
 #
 # This software is licensed under a Clear BSD License.
@@ -16,7 +16,7 @@ CODE_NAME = main-print-line.c
 SCRIPT_NAME = pl
 INFO_NAME = func_info.c
 GEN_SCRIPT = gen_info.sh
-DEFALT_INSTALL = /usr/local/bin/
+DEFALT_INSTALL = /usr/bin
 #MAN_LOCATION = man/man1/ecgo.1.gz
 #MAN_INSTALL = /usr/share/man/man1/
 
@@ -50,7 +50,7 @@ clean:
 	rm -f $(SCRIPT_NAME)
 
 uninstall:
-	rm $(INSTALL_TO)$(SCRIPT_NAME)
+	rm -f $(INSTALL_TO)$(SCRIPT_NAME)
 
 #
 # End Makefile
