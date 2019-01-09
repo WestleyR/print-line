@@ -6,7 +6,7 @@
 //
 // The Clear BSD License
 //
-// Copyright (c) 2018 WestleyR
+// Copyright (c) 2019 WestleyR
 // All rights reserved.
 //
 // This software is licensed under a Clear BSD License.
