@@ -30,14 +30,18 @@ sudo make install
 
 <br>
 
-Optnaly you can install with difrant `prefix`:
+Optional, you can install with different `prefix`:
 
 ```bash
 make
 sudo make install prefix=/wherever/you/want
 ```
 
-### Download the pre-compiled code:
+<br>
+
+## Download the pre-compiled code:
+
+***NOTE:** You may not get the latest version by downloading the precompiled, check you version by running `./pl --version`.*
 
 Click to download `pl` for your system:
 
@@ -54,7 +58,7 @@ Click to download `pl` for your system:
     `wget https://?????`
 
 
-Then to install:
+### Then to install:
 
 ```bash
 INSTALL_TO="/usr/bin"  # or wherever you want to install it
