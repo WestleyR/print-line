@@ -41,7 +41,7 @@ sudo make install prefix=/wherever/you/want
 
 Click to download `pl` for your system:
 
-  - [`x86_64`](https://?????foo)<br>
+  - [`x86_64`](https://github.com/WestleyR/print-line/raw/master/pre-compiled/x86_64/pl)<br>
     `wget https://github.com/WestleyR/print-line/raw/master/pre-compiled/x86_64/pl`
 
   - [`darwin`](https://????)<br>
