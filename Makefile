@@ -1,8 +1,8 @@
 # Created by: WestleyR
 # email: westleyr@nym.hush.com
-# Date: Jan 8, 2018
+# Date: Jan 15, 2018
 # https://github.com/WestleyR/print-line
-# Version-1.0.1
+# Version-1.0.2
 #
 # The Clear BSD License
 #
@@ -16,6 +16,8 @@ CODE_NAME = main-print-line.c
 SCRIPT_NAME = pl
 INFO_NAME = func_info.c
 GEN_SCRIPT = gen_info.sh
+CFLAG = -static
+FLAG = 
 DEFALT_INSTALL = /usr/bin
 #MAN_LOCATION = man/man1/ecgo.1.gz
 #MAN_INSTALL = /usr/share/man/man1/
@@ -30,7 +32,7 @@ all: $(CODE_NAME)
 	@chmod +x $(GEN_SCRIPT)
 	@./$(GEN_SCRIPT)
 	@echo "Compileing code..."
-	gcc -o $(SCRIPT_NAME) $(CODE_NAME) $(INFO_NAME)
+	gcc $(FLAG) $(CFLAG) -o $(SCRIPT_NAME) $(CODE_NAME) $(INFO_NAME)
 	@rm -f $(INFO_NAME)
 	@echo "Done."
 	@echo ">> Do:"
