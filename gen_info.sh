@@ -1,9 +1,9 @@
 #!/bin/sh
 # Created by: WestleyR
-# email: westleyR@nym.hush.com
-# Date: Jan 8, 2018
+# email: westleyr@nym.hush.com
+# Date: Jan 15, 2018
 # https://github.com/WestleyR/strcomp
-# Version-1.0.0
+# Version-1.0.1
 #
 # The Clear BSD License
 #
@@ -15,8 +15,12 @@
 
 INFO_FILE="func_info.c"
 
-DATE_INFO=` date `
-PWD_INFO=` pwd `
+DATE_INFO=` date "+%B %d, %Y, %I:%M:%S %p" `
+WHO=` whoami `
+ON=` hostname `
+WHERE=` pwd `
+KERN=` uname -r `
+ARCH=` uname -m `
 
 cat << EOF > "$INFO_FILE"
 // created by: WestleyR
@@ -38,9 +42,12 @@ cat << EOF > "$INFO_FILE"
 
 void print_info() {
 
-    printf("${DATE_INFO}\n");
-    printf("HELLO WORLD\n");
-    printf("HELLO WORLD\n");
+    printf("Compiled on        : ${DATE_INFO}\n");
+    printf("Compiled by        : ${WHO}\n");
+    printf("Compiled on        : ${ON}\n");
+    printf("Compiled in        : ${WHERE}\n");
+    printf("Compiled on kernel : ${KERN}\n");
+    printf("Compiled on arch   : ${ARCH}\n");
 
     return;
 }
