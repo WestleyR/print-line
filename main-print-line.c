@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Jan 8, 2018
+// date: Jan 15, 2018
 // version-1.0.0
 //
 // The Clear BSD License
@@ -20,7 +20,7 @@
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-4"
+#define VERSION "version-1.0.0-beta-5"
 #define DATE_MODIFIED "Jan 8, 2018"
 
 // colors/effects
@@ -89,9 +89,9 @@ void script_version() {
 
 // print info
 void info_print() {
-//    void print_info();
     print_info();
     printf("Compiled date: %s\n", __DATE__);
+    printf("Compiled with gcc version: %d.%d.%d\n", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
     if (colorPrint == 1 && noReset != 1) {
         printf("%s", colorReset);
     }
@@ -179,18 +179,6 @@ void print_all(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
     SCRIPT_NAME = argv[0];
-
-/*    if (argc > 1) {
-        if ((strcmp(argv[1], "--help") == 0)) {
-            SCRIPT_NAME = argv[0];
-            help_menu();
-        } else if ((strcmp(argv[1], "--version") == 0)) {
-            script_version();
-        } else if ((strcmp(argv[1], "--info") == 0)) {
-            info_print();
-        }
-    }*/
-
 
     if (argc > 1) {
         if ((strcmp(argv[1], "-a") == 0) || (strcmp(argv[1], "--all") == 0)) {
