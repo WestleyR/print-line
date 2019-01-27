@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Jan 15, 2018
+// date: Jan 25, 2018
 // version-1.0.0
 //
 // The Clear BSD License
@@ -20,8 +20,8 @@
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-5"
-#define DATE_MODIFIED "Jan 8, 2018"
+#define VERSION "version-1.0.0-beta-6"
+#define DATE_MODIFIED "Jan 25, 2018"
 
 // colors/effects
 #define colorReset "\033[0m"
@@ -43,7 +43,7 @@ int colorPrint = 0;
 void help_menu() {
     printf("DESCRIPTION:\n");
     printf("    simple, fast, minimal printer.\n");
-    printf("    print line of text.\n");
+    printf("    print line of text, and stdin to standard out.\n");
     printf("\n");
     printf("USAGE:\n");
     printf("    %s [OPTION] [MESSAGE]...\n", SCRIPT_NAME);
@@ -57,6 +57,7 @@ void help_menu() {
     printf("    -e, --line     : print newline.\n");
     printf("    -s, --noset    : dont reset the color.\n");
     printf("    -r, --reset    : reset color.\n");
+    printf("    -u, --user     : print user input.\n");
     printf("        --script   : print script info & exit.\n");
     printf("    -v, --version  : print version & exit.\n");
     printf("\n");
@@ -96,6 +97,15 @@ void info_print() {
         printf("%s", colorReset);
     }
     exit(0);
+}
+
+void user_input() {
+    char userInput[400];
+
+    fgets(userInput, 400, stdin);
+    printf("%s", userInput);
+
+	exit(0);
 }
 
 void check_args(char* OPTION) {
@@ -145,18 +155,18 @@ void check_args(char* OPTION) {
         return;
     } else if ((strcmp(OPTION, "-i") == 0) || (strcmp(OPTION, "--info") == 0)) {
         printf("%sINFO:    %s", blue, colorReset);
-//        colorPrint = 1;
         return;
     } else if ((strcmp(OPTION, "-w") == 0) || (strcmp(OPTION, "--warning") == 0)) {
         printf("%sWARNING: %s", yellow, colorReset);
-//        colorPrint = 1;
         return;
     } else if ((strcmp(OPTION, "-f") == 0) || (strcmp(OPTION, "--fatal") == 0)) {
         printf("%sFATAL:   %s", red, colorReset);
-//        colorPrint = 1;
         return;
     } else if (strcmp(OPTION, "--script") == 0) {
         info_print();
+        return;
+    } else if ((strcmp(OPTION, "-u") == 0) || (strcmp(OPTION, "--user") == 0)) {
+        user_input();
         return;
     } else if ((strcmp(OPTION, "-v") == 0) || (strcmp(OPTION, "--version") == 0)) {
         script_version();
