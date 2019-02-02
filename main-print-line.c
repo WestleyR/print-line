@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Jan 25, 2018
+// date: Feb 1, 2018
 // version-1.0.0
 //
 // The Clear BSD License
@@ -17,10 +17,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <time.h>
+
+#include <sys/time.h>
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-6"
+#define VERSION "version-1.0.0-beta-8"
 #define DATE_MODIFIED "Jan 25, 2018"
 
 // colors/effects
@@ -53,6 +56,7 @@ void help_menu() {
     printf("    -i, --info     : print message with INFO:.\n");
     printf("    -w, --warning  : print message with WARNING:.\n");
     printf("    -f, --fatal    : print message with FATAL:.\n");
+    printf("    -l, --log      : print message starting with date.\n");
     printf("    -n, --noline   : dont print newline.\n");
     printf("    -e, --line     : print newline.\n");
     printf("    -s, --noset    : dont reset the color.\n");
@@ -108,6 +112,19 @@ void user_input() {
 	exit(0);
 }
 
+void printLogDate() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    struct timeval miliseconds;
+    gettimeofday(&miliseconds, NULL);
+
+//    printf("[%d-%d-%d, %d:%d:%d.%-6.4ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+
+    return;
+}
+
 void check_args(char* OPTION) {
     if ((strcmp(OPTION, "-h") == 0) || (strcmp(OPTION, "--help") == 0)) {
         help_menu();
@@ -125,6 +142,8 @@ void check_args(char* OPTION) {
         printf("%s", colorReset);
         colorPrint = 0;
         return;
+    } else if ((strcmp(OPTION, "-l") == 0) || (strcmp(OPTION, "--log") == 0)) {
+        printLogDate();
     } else if (strcmp(OPTION, "--red") == 0) {
         printf("%s", red);
         colorPrint = 1;
