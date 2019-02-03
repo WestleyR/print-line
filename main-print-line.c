@@ -127,6 +127,30 @@ void checkForMatch(char* input) {
         printf("%s", red);
         colorPrint = 1;
         return;
+    } else if (strcmp(input, "{green}") == 0) {
+        printf("%s", green);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(input, "{yellow}") == 0) {
+        printf("%s", yellow);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(input, "{blue}") == 0) {
+        printf("%s", blue);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(input, "{magenta}") == 0) {
+        printf("%s", magenta);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(input, "{cyan}") == 0) {
+        printf("%s", cyan);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(input, "{bold}") == 0) {
+        printf("%s", bold);
+        colorPrint = 1;
+        return;
     } else if ((strcmp(input, "{r}") == 0 ) || (strcmp(input, "{reset}") == 0)) {
         printf("%s", colorReset);
         colorPrint = 0;
