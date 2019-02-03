@@ -42,6 +42,7 @@ int print_message = 0;
 int noNewLine = 0;
 int noReset = 0;
 int colorPrint = 0;
+int truePrint = 0;
 
 void help_menu() {
     printf("DESCRIPTION:\n");
@@ -110,90 +111,6 @@ void user_input() {
     printf("%s", userInput);
 
 	exit(0);
-}
-
-void printLogDate() {
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-
-    struct timeval miliseconds;
-    gettimeofday(&miliseconds, NULL);
-
-    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
-//    printf("[%d-%02d-%02dT%02d:%02d:%02d.%.02ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
-    return;
-}
-
-void check_args(char* OPTION) {
-    if ((strcmp(OPTION, "-h") == 0) || (strcmp(OPTION, "--help") == 0)) {
-        help_menu();
-        return;
-    } else if ((strcmp(OPTION, "-n") == 0) || (strcmp(OPTION, "--noline") == 0)) {
-        noNewLine = 1;
-        return;
-    } else if ((strcmp(OPTION, "-e") == 0) || (strcmp(OPTION, "--line") == 0)) {
-        printf("\n");
-        return;
-    } else if ((strcmp(OPTION, "-s") == 0) || (strcmp(OPTION, "--noset") == 0)) {
-        noReset = 1;
-        return;
-    } else if ((strcmp(OPTION, "-r") == 0) || (strcmp(OPTION, "--reset") == 0)) {
-        printf("%s", colorReset);
-        colorPrint = 0;
-        return;
-    } else if ((strcmp(OPTION, "-l") == 0) || (strcmp(OPTION, "--log") == 0)) {
-        printLogDate();
-    } else if (strcmp(OPTION, "--red") == 0) {
-        printf("%s", red);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--green") == 0) {
-        printf("%s", green);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--yellow") == 0) {
-        printf("%s", yellow);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--blue") == 0) {
-        printf("%s", blue);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--magenta") == 0) {
-        printf("%s", magenta);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--cyan") == 0) {
-        printf("%s", cyan);
-        colorPrint = 1;
-        return;
-    } else if (strcmp(OPTION, "--bold") == 0) {
-        printf("%s", bold);
-        colorPrint = 1;
-        return;
-    } else if ((strcmp(OPTION, "-i") == 0) || (strcmp(OPTION, "--info") == 0)) {
-        printf("%sINFO:    %s", blue, colorReset);
-        return;
-    } else if ((strcmp(OPTION, "-w") == 0) || (strcmp(OPTION, "--warning") == 0)) {
-        printf("%sWARNING: %s", yellow, colorReset);
-        return;
-    } else if ((strcmp(OPTION, "-f") == 0) || (strcmp(OPTION, "--fatal") == 0)) {
-        printf("%sFATAL:   %s", red, colorReset);
-        return;
-    } else if (strcmp(OPTION, "--script") == 0) {
-        info_print();
-        return;
-    } else if ((strcmp(OPTION, "-u") == 0) || (strcmp(OPTION, "--user") == 0)) {
-        user_input();
-        return;
-    } else if ((strcmp(OPTION, "-v") == 0) || (strcmp(OPTION, "--version") == 0)) {
-        script_version();
-        return;
-    } else {
-        print_message = 1;
-        return;
-    }
-    return;
 }
 
 void print_all(int argc, char* argv[]) {
@@ -276,6 +193,102 @@ void check_char(char input) {
     return;
 }
 
+void printLogDate() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    struct timeval miliseconds;
+    gettimeofday(&miliseconds, NULL);
+
+    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+//    printf("[%d-%02d-%02dT%02d:%02d:%02d.%.02ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+    return;
+}
+
+//void printTrueMessage(char** argv[]) {
+
+//    printf("INFO: %s\n", argv);
+//
+//    return;
+//}
+
+void check_args(char* OPTION) {
+    if ((strcmp(OPTION, "-h") == 0) || (strcmp(OPTION, "--help") == 0)) {
+        help_menu();
+        return;
+    } else if ((strcmp(OPTION, "-n") == 0) || (strcmp(OPTION, "--noline") == 0)) {
+        noNewLine = 1;
+        return;
+    } else if ((strcmp(OPTION, "-e") == 0) || (strcmp(OPTION, "--line") == 0)) {
+        printf("\n");
+        return;
+    } else if ((strcmp(OPTION, "-s") == 0) || (strcmp(OPTION, "--noset") == 0)) {
+        noReset = 1;
+        return;
+    } else if ((strcmp(OPTION, "-r") == 0) || (strcmp(OPTION, "--reset") == 0)) {
+        printf("%s", colorReset);
+        colorPrint = 0;
+        return;
+    } else if ((strcmp(OPTION, "-l") == 0) || (strcmp(OPTION, "--log") == 0)) {
+        printLogDate();
+        return;
+    } else if ((strcmp(OPTION, "-p") == 0) || (strcmp(OPTION, "--print") == 0)) {
+//        printTrueMessage();
+        truePrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--red") == 0) {
+        printf("%s", red);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--green") == 0) {
+        printf("%s", green);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--yellow") == 0) {
+        printf("%s", yellow);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--blue") == 0) {
+        printf("%s", blue);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--magenta") == 0) {
+        printf("%s", magenta);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--cyan") == 0) {
+        printf("%s", cyan);
+        colorPrint = 1;
+        return;
+    } else if (strcmp(OPTION, "--bold") == 0) {
+        printf("%s", bold);
+        colorPrint = 1;
+        return;
+    } else if ((strcmp(OPTION, "-i") == 0) || (strcmp(OPTION, "--info") == 0)) {
+        printf("%sINFO:    %s", blue, colorReset);
+        return;
+    } else if ((strcmp(OPTION, "-w") == 0) || (strcmp(OPTION, "--warning") == 0)) {
+        printf("%sWARNING: %s", yellow, colorReset);
+        return;
+    } else if ((strcmp(OPTION, "-f") == 0) || (strcmp(OPTION, "--fatal") == 0)) {
+        printf("%sFATAL:   %s", red, colorReset);
+        return;
+    } else if (strcmp(OPTION, "--script") == 0) {
+        info_print();
+        return;
+    } else if ((strcmp(OPTION, "-u") == 0) || (strcmp(OPTION, "--user") == 0)) {
+        user_input();
+        return;
+    } else if ((strcmp(OPTION, "-v") == 0) || (strcmp(OPTION, "--version") == 0)) {
+        script_version();
+        return;
+    } else {
+        print_message = 1;
+        return;
+    }
+    return;
+}
+
 int main(int argc, char* argv[]) {
     SCRIPT_NAME = argv[0];
 
@@ -302,6 +315,16 @@ int main(int argc, char* argv[]) {
             printf("%s", argv[i]);
             print_message = 0;
         }
+        if (truePrint == 1) {
+            for (unsigned int c=0; c <= strlen(argv[i]); c++) {
+                printf("INFO: %c\n", argv[i][c]);
+//                char myChar = argv[i][i];
+//                check_char(myChar);
+            }
+        
+//            printTrueMessage(&argv);
+            return(0);
+        }
     }
     if (noNewLine != 1) {
         printf("\n");
@@ -311,37 +334,23 @@ int main(int argc, char* argv[]) {
         printf("%s", colorReset);
     }
 
+
     char buf[BUFSIZ];
     fgets(buf, sizeof buf, stdin);
     if (buf[strlen(buf)-1] == '\n') {
-//        printf("%s", buf);
 
         for (unsigned int i=0; i <= strlen(buf); i++) {
-//            printf("debug: %c\n", buf[i]);
             char myChar = buf[i];
             check_char(myChar);
         }
 
 
 //        return 0;
-
-        // read full line
-//         while((bytes_read=fread(&buffer, buffer_size, 1, instream))==buffer_size){
-//            fprintf(stdout, "%c", buffer[0]);
-//        }
     } else {
         printf("ERROR: somthing bad happend!\n");
         exit(1);
         // line was truncated
     }
-
-
-
-//    for (int i=1; i < argc; i++) {
-//        printf("%s", argv[i]);
-//    }
-//    printf("\n");
-
 
     return(0);
 }
