@@ -205,6 +205,77 @@ void print_all(int argc, char* argv[]) {
     return;
 }
 
+void checkForMatch(char* input) {
+    if (strcmp(input, "{red}") == 0) {
+        printf("%s", red);
+        return;
+    } else if ((strcmp(input, "{r}") == 0 ) || (strcmp(input, "{reset}") == 0)) {
+        printf("%s", colorReset);
+        return;
+    }
+
+    return;
+}
+
+char opt[200];
+int sstart = 0;
+int sopen = 0;
+int end = 0;
+
+int stest = 0;
+
+void check_char(char input) {
+
+//    printf("\nINFO: %c\n", input);
+//    printf("Ibar: %s\n", opt);
+
+    if ((stest == 1) && (input != '{')) {
+        stest = 0;
+        sstart = 0;
+        printf("ERROR: no '{}' after '%%'");
+        return;
+    }
+    if (input == '%') {
+        sstart = 1;
+        stest = 1;
+    } else if (sstart != 1) {
+        printf("%c", input);
+        return;
+    }
+
+    if ((sstart == 1) && (input == '{')) {
+        sopen = 1;
+        stest = 0;
+    }
+
+    if (sopen == 1) {
+//        char* opt = strcat(opt, &input);
+        strcat(opt, &input);
+    }
+
+    int l = strlen(opt);
+    if (l >= 12) {
+        printf("WARNING: %s: color to long: %d", opt, l);
+        sopen = 0;
+        sstart = 0;
+        stest = 0;
+//        checkForMatch(opt);
+        char* opt = "";
+        return;
+    }
+
+    if (input == '}') {
+        sopen = 0;
+        sstart = 0;
+        stest = 0;
+//        printf("CHACKEING: %s\n", opt);
+        checkForMatch(opt);
+        char* opt = "";
+    }
+
+    return;
+}
+
 int main(int argc, char* argv[]) {
     SCRIPT_NAME = argv[0];
 
@@ -212,9 +283,9 @@ int main(int argc, char* argv[]) {
         if ((strcmp(argv[1], "-a") == 0) || (strcmp(argv[1], "--all") == 0)) {
             ALL_PRINT = 1;
         }
-    } else {
-        printf("\n");
-        return 0;
+//    } else {
+//        printf("\n");
+//        return 0;
     }
 
     if (ALL_PRINT == 1) {
@@ -240,13 +311,20 @@ int main(int argc, char* argv[]) {
         printf("%s", colorReset);
     }
 
-
-
-/*    char buf[BUFSIZ];
+    char buf[BUFSIZ];
     fgets(buf, sizeof buf, stdin);
     if (buf[strlen(buf)-1] == '\n') {
-        printf("%s", buf);
-        return 0;
+//        printf("%s", buf);
+
+        for (unsigned int i=0; i <= strlen(buf); i++) {
+//            printf("debug: %c\n", buf[i]);
+            char myChar = buf[i];
+            check_char(myChar);
+        }
+
+
+//        return 0;
+
         // read full line
 //         while((bytes_read=fread(&buffer, buffer_size, 1, instream))==buffer_size){
 //            fprintf(stdout, "%c", buffer[0]);
@@ -255,7 +333,7 @@ int main(int argc, char* argv[]) {
         printf("ERROR: somthing bad happend!\n");
         exit(1);
         // line was truncated
-    }*/
+    }
 
 
 
@@ -265,7 +343,7 @@ int main(int argc, char* argv[]) {
 //    printf("\n");
 
 
-    return 0;
+    return(0);
 }
 
 
