@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Feb 2, 2018
+// date: Feb 3, 2018
 // version-1.0.0
 //
 // The Clear BSD License
@@ -23,8 +23,8 @@
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-10"
-#define DATE_MODIFIED "Feb 2, 2018"
+#define VERSION "version-1.0.0-beta-12"
+#define DATE_MODIFIED "Feb 3, 2018"
 
 // colors/effects
 #define colorReset "\033[0m"
@@ -125,9 +125,11 @@ void print_all(int argc, char* argv[]) {
 void checkForMatch(char* input) {
     if (strcmp(input, "{red}") == 0) {
         printf("%s", red);
+        colorPrint = 1;
         return;
     } else if ((strcmp(input, "{r}") == 0 ) || (strcmp(input, "{reset}") == 0)) {
         printf("%s", colorReset);
+        colorPrint = 0;
         return;
     }
 
@@ -316,10 +318,16 @@ int main(int argc, char* argv[]) {
             print_message = 0;
         }
         if (truePrint == 1) {
-            for (unsigned int c=0; c <= strlen(argv[i]); c++) {
-                printf("INFO: %c\n", argv[i][c]);
-//                char myChar = argv[i][i];
-//                check_char(myChar);
+            for (unsigned int c=0; c <= strlen(argv[i+1]); c++) {
+//                printf("INFO: %c\n", argv[i+1][c]);
+                char myChar = argv[i+1][c];
+                check_char(myChar);
+            }
+            if (colorPrint == 1) {
+                printf("%s", colorReset);
+            }
+            if (noNewLine != 1) {
+                printf("\n");
             }
         
 //            printTrueMessage(&argv);
