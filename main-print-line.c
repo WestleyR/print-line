@@ -179,7 +179,7 @@ void check_char(char input) {
         sstart = 0;
         stest = 0;
 //        checkForMatch(opt);
-        char* opt = "";
+        opt[0] = '\0';
         return;
     }
 
@@ -189,7 +189,7 @@ void check_char(char input) {
         stest = 0;
 //        printf("CHACKEING: %s\n", opt);
         checkForMatch(opt);
-        char* opt = "";
+        opt[0] = '\0';
     }
 
     return;
