@@ -20,7 +20,7 @@
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-14"
+#define VERSION "version-1.0.0-beta-18"
 #define DATE_MODIFIED "Feb 3, 2018"
 
 // colors/effects
@@ -171,7 +171,8 @@ void check_char(char input) {
     if ((stest == 1) && (input != '{')) {
         stest = 0;
         sstart = 0;
-        printf("ERROR: no '{}' after '%%'");
+        opt[0] = '\0';
+        printf("%c", input);
         return;
     }
     if (input == '%') {
