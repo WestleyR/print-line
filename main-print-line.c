@@ -18,7 +18,7 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <time.h>
-
+#include <sys/ioctl.h>
 #include <sys/time.h>
 
 #include "func_info.h"
@@ -43,6 +43,7 @@ int noNewLine = 0;
 int noReset = 0;
 int colorPrint = 0;
 int truePrint = 0;
+int pipInput = 0;
 
 void help_menu() {
     printf("DESCRIPTION:\n");
@@ -62,6 +63,8 @@ void help_menu() {
     printf("    -e, --line     : print newline.\n");
     printf("    -s, --noset    : dont reset the color.\n");
     printf("    -r, --reset    : reset color.\n");
+    printf("    -p, --print    : true print.");
+    printf("    -, --pipe      : take input from pipe.\n");
     printf("    -u, --user     : print user input.\n");
     printf("        --script   : print script info & exit.\n");
     printf("    -v, --version  : print version & exit.\n");
@@ -168,10 +171,6 @@ int end = 0;
 int stest = 0;
 
 void check_char(char input) {
-
-//    printf("\nINFO: %c\n", input);
-//    printf("Ibar: %s\n", opt);
-
     if ((stest == 1) && (input != '{')) {
         stest = 0;
         sstart = 0;
@@ -192,7 +191,6 @@ void check_char(char input) {
     }
 
     if (sopen == 1) {
-//        char* opt = strcat(opt, &input);
         strcat(opt, &input);
     }
 
@@ -202,7 +200,6 @@ void check_char(char input) {
         sopen = 0;
         sstart = 0;
         stest = 0;
-//        checkForMatch(opt);
         opt[0] = '\0';
         return;
     }
@@ -211,7 +208,6 @@ void check_char(char input) {
         sopen = 0;
         sstart = 0;
         stest = 0;
-//        printf("CHACKEING: %s\n", opt);
         checkForMatch(opt);
         opt[0] = '\0';
     }
@@ -230,13 +226,6 @@ void printLogDate() {
 //    printf("[%d-%02d-%02dT%02d:%02d:%02d.%.02ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
     return;
 }
-
-//void printTrueMessage(char** argv[]) {
-
-//    printf("INFO: %s\n", argv);
-//
-//    return;
-//}
 
 void check_args(char* OPTION) {
     if ((strcmp(OPTION, "-h") == 0) || (strcmp(OPTION, "--help") == 0)) {
@@ -259,8 +248,10 @@ void check_args(char* OPTION) {
         printLogDate();
         return;
     } else if ((strcmp(OPTION, "-p") == 0) || (strcmp(OPTION, "--print") == 0)) {
-//        printTrueMessage();
         truePrint = 1;
+        return;
+    } else if ((strcmp(OPTION, "-") == 0) || (strcmp(OPTION, "--pipe")) == 0) {
+        pipInput = 1;
         return;
     } else if (strcmp(OPTION, "--red") == 0) {
         printf("%s", red);
@@ -315,6 +306,20 @@ void check_args(char* OPTION) {
     return;
 }
 
+void printTrueMessage(char* input) {
+    for (unsigned int i=0; i <= strlen(input); i++) {
+        char myChar = input[i];
+        check_char(myChar);
+    }
+    if (noNewLine != 1) {
+        printf("\n");
+    }
+    if (colorPrint == 1 && noReset != 1) {
+        printf("%s", colorReset);
+    }
+    return;
+}
+
 int main(int argc, char* argv[]) {
     SCRIPT_NAME = argv[0];
 
@@ -342,22 +347,44 @@ int main(int argc, char* argv[]) {
             print_message = 0;
         }
         if (truePrint == 1) {
-            for (unsigned int c=0; c <= strlen(argv[i+1]); c++) {
-//                printf("INFO: %c\n", argv[i+1][c]);
-                char myChar = argv[i+1][c];
-                check_char(myChar);
+            int f;
+            int len = 1;
+            char *fullMessageTmp;
+
+            for (f = i+1; f < argc; f++) {
+                len += strlen(argv[f]);
             }
-            if (colorPrint == 1) {
-                printf("%s", colorReset);
+            fullMessageTmp = malloc(sizeof(char)*len);
+            fullMessageTmp[0] = '\0';
+
+            for (f = i+1; f < argc; f++) {
+                strcat(fullMessageTmp, argv[f]);
             }
-            if (noNewLine != 1) {
-                printf("\n");
-            }
-        
-//            printTrueMessage(&argv);
+            printTrueMessage(fullMessageTmp);
             return(0);
         }
     }
+
+    if (pipInput == 1) {
+        char buf[BUFSIZ];
+
+        if (truePrint == 1) {
+            while (1 == scanf("%[^\n]%*c", buf)) {
+                buf[strcspn(buf, "\n")] = 0;
+                for (unsigned int i=0; i <= strlen(buf); i++) {
+                    char myChar = buf[i];
+                    check_char(myChar);
+                }
+                printf("\n");
+            }
+        } else {
+            while (1 == scanf("%[^\n]%*c", buf)) {
+//                buf[strcspn(buf, "\n")] = 0;
+                printf("%s", buf);
+            }
+        }
+    }
+
     if (noNewLine != 1) {
         printf("\n");
     }
@@ -366,27 +393,8 @@ int main(int argc, char* argv[]) {
         printf("%s", colorReset);
     }
 
-
-    char buf[BUFSIZ];
-    fgets(buf, sizeof buf, stdin);
-    if (buf[strlen(buf)-1] == '\n') {
-
-        for (unsigned int i=0; i <= strlen(buf); i++) {
-            char myChar = buf[i];
-            check_char(myChar);
-        }
-
-
-//        return 0;
-    } else {
-        printf("ERROR: somthing bad happend!\n");
-        exit(1);
-        // line was truncated
-    }
-
     return(0);
 }
-
 
 
 // 
