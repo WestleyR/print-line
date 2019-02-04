@@ -15,15 +15,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <unistd.h>
 #include <time.h>
-#include <sys/ioctl.h>
 #include <sys/time.h>
 
 #include "func_info.h"
 
-#define VERSION "version-1.0.0-beta-12"
+#define VERSION "version-1.0.0-beta-14"
 #define DATE_MODIFIED "Feb 3, 2018"
 
 // colors/effects
@@ -252,6 +249,7 @@ void check_args(char* OPTION) {
         return;
     } else if ((strcmp(OPTION, "-") == 0) || (strcmp(OPTION, "--pipe")) == 0) {
         pipInput = 1;
+        noNewLine = 1;
         return;
     } else if (strcmp(OPTION, "--red") == 0) {
         printf("%s", red);
@@ -346,7 +344,7 @@ int main(int argc, char* argv[]) {
             printf("%s", argv[i]);
             print_message = 0;
         }
-        if (truePrint == 1) {
+        if ((truePrint == 1) && (pipInput != 1)) {
             int f;
             int len = 1;
             char *fullMessageTmp;
@@ -366,21 +364,28 @@ int main(int argc, char* argv[]) {
     }
 
     if (pipInput == 1) {
-        char buf[BUFSIZ];
-
+        FILE *fptr;
+        char c;
+        char* filename = "/dev/stdin";
+  
+        fptr = fopen(filename, "r");
+        if (fptr == NULL) {
+            printf("ERROR: Cannot open file: %s\n", filename);
+            exit(1);
+        } 
+  
         if (truePrint == 1) {
-            while (1 == scanf("%[^\n]%*c", buf)) {
-                buf[strcspn(buf, "\n")] = 0;
-                for (unsigned int i=0; i <= strlen(buf); i++) {
-                    char myChar = buf[i];
-                    check_char(myChar);
-                }
-                printf("\n");
+            c = fgetc(fptr);
+            while (c != EOF) {
+                check_char(c);
+                c = fgetc(fptr);
             }
+            fclose(fptr);
         } else {
-            while (1 == scanf("%[^\n]%*c", buf)) {
-//                buf[strcspn(buf, "\n")] = 0;
-                printf("%s", buf);
+            c = fgetc(fptr);
+            while (c != EOF) {
+                printf ("%c", c);
+                c = fgetc(fptr);
             }
         }
     }
