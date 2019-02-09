@@ -24,18 +24,12 @@ hello (blue) world (red)
 ```bash
 git clone https://github.com/WestleyR/print-line
 cd print-line/
+./configure [--prefix=/where/to/install]  # default: /usr/bin
 make
 sudo make install
 ```
 
-<br>
-
-Optional, you can install with different `prefix`:
-
-```bash
-make
-sudo make install prefix=/wherever/you/want
-```
+*And yes, this supports `tcc` (tiny c compiler), use the `--compiler=tcc` when running `./configure`.*
 
 <br>
 

@@ -92,7 +92,6 @@ void script_version() {
 void info_print() {
     print_info();
     printf("Compiled date: %s\n", __DATE__);
-    printf("Compiled with gcc version: %d.%d.%d\n", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
     if (colorPrint == 1 && noReset != 1) {
         printf("%s", colorReset);
     }
