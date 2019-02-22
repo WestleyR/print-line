@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Feb 3, 2018
+// date: Feb 19, 2019
 // version-1.0.0
 //
 // The Clear BSD License
@@ -18,10 +18,8 @@
 #include <time.h>
 #include <sys/time.h>
 
-#include "func_info.h"
-
-#define VERSION "version-1.0.0-beta-18"
-#define DATE_MODIFIED "Feb 3, 2018"
+#define VERSION "version-1.0.0-beta-20"
+#define DATE_MODIFIED "Feb 19, 2019"
 
 // colors/effects
 #define colorReset "\033[0m"
@@ -63,7 +61,6 @@ void help_menu() {
     printf("    -p, --print    : true print.");
     printf("    -, --pipe      : take input from pipe.\n");
     printf("    -u, --user     : print user input.\n");
-    printf("        --script   : print script info & exit.\n");
     printf("    -v, --version  : print version & exit.\n");
     printf("\n");
     printf("COLORS:\n");
@@ -76,7 +73,7 @@ void help_menu() {
     printf("\n");
     printf("Source code: https://github.com/WestleyR/print-line\n");
     printf("\n");
-    printf("Copyright (c) 2018 WestleyR, All rights reserved.\n");
+    printf("Copyright (c) 2019 WestleyR, All rights reserved.\n");
     printf("This software is licensed under a Clear BSD License.\n");
     if (colorPrint == 1 && noReset != 1) {
         printf("%s", colorReset);
@@ -87,16 +84,6 @@ void help_menu() {
 // if we need to print version and date
 void script_version() {
     printf("%s, %s\n", VERSION, DATE_MODIFIED);
-    if (colorPrint == 1 && noReset != 1) {
-        printf("%s", colorReset);
-    }
-    exit(0);
-}
-
-// print info
-void info_print() {
-    print_info();
-    printf("Compiled date: %s\n", __DATE__);
     if (colorPrint == 1 && noReset != 1) {
         printf("%s", colorReset);
     }
@@ -287,9 +274,6 @@ void check_args(char* OPTION) {
         return;
     } else if ((strcmp(OPTION, "-f") == 0) || (strcmp(OPTION, "--fatal") == 0)) {
         printf("%sFATAL:   %s", red, colorReset);
-        return;
-    } else if (strcmp(OPTION, "--script") == 0) {
-        info_print();
         return;
     } else if ((strcmp(OPTION, "-u") == 0) || (strcmp(OPTION, "--user") == 0)) {
         user_input();

@@ -25,7 +25,11 @@ INSTALL_MAKE="install.makefile"
 CLEAN_MAKE="clean.makefile"
 UNINSTALL_MAKE="uninstall.makefile"
 
-FILES_NEEDED="func_info.h gen_info.sh main-print-line.c ${MAKEFRAG}/${ALL_MAKE} ${MAKEFRAG}/${STATIC_MAKE} ${MAKEFRAG}/${INSTALL_MAKE} ${MAKEFRAG}/${CLEAN_MAKE} ${MAKEFRAG}/${UNINSTALL_MAKE}"
+SRCDIR="src"
+
+FILES_NEEDED="${SRCDIR}/main-print-line.c ${MAKEFRAG}/${ALL_MAKE} \
+${MAKEFRAG}/${STATIC_MAKE} ${MAKEFRAG}/${INSTALL_MAKE} \
+${MAKEFRAG}/${CLEAN_MAKE} ${MAKEFRAG}/${UNINSTALL_MAKE}"
 
 PREFIX="/usr/bin"
 COMPILER="gcc"
@@ -158,10 +162,8 @@ if [ "$COMPILER" = "gcc" ]; then
     cat << EOF >> "$MAKEFILE"
 
 PREFIX = ${PREFIX}
-CODE_NAME = main-print-line.c
+CODE_NAME = src/main-print-line.c
 SCRIPT_NAME = pl
-INFO_NAME = func_info.c
-GEN_SCRIPT = gen_info.sh
 
 COMPILER = ${COMPILER}
 
@@ -174,10 +176,8 @@ else
     cat << EOF >> "$MAKEFILE"
 
 PREFIX = ${PREFIX}
-CODE_NAME = main-print-line.c
+CODE_NAME = src/main-print-line.c
 SCRIPT_NAME = pl
-INFO_NAME = func_info.c
-GEN_SCRIPT = gen_info.sh
 
 COMPILER = ${COMPILER}
 
