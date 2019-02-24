@@ -39,8 +39,8 @@ sudo make install
 
 Click to download `pl` for your system:
 
-  - [`x86_64`](https://github.com/WestleyR/print-line/raw/master/pre-compiled/x86_64/pl)<br>
-    `wget https://github.com/WestleyR/print-line/raw/master/pre-compiled/x86_64/pl`
+  - [`x86_64`](https://github.com/WestleyR/print-line/raw/master/pre-compiled/static/x86_64/pl)<br>
+    `wget https://github.com/WestleyR/print-line/raw/master/pre-compiled/static/x86_64/pl`
 
   - [`darwin`](https://????)<br>
     `wget https://?????`
@@ -55,8 +55,8 @@ Click to download `pl` for your system:
 ### Then to install:
 
 ```bash
-INSTALL_TO="/usr/bin"  # or wherever you want to install it
-sudo mv pl ${INSTALL_TO} && sudo chmod +x ${INSTALL_TO}/pl
+chmod +x pl
+sudo mv pl /usr/local/bin
 
 sudo mv pl.1.gz /usr/share/man/man1/
 ```
