@@ -1,9 +1,9 @@
 #!/bin/sh
 # Created by: WestleyR
 # email: westleyr@nym.hush.com
-# Date: Feb 7, 2018
+# Date: Feb 23, 2019
 # https://github.com/WestleyR/print-line
-# Version-1.0.0
+# Version-1.0.1
 #
 # The Clear BSD License
 #
@@ -167,7 +167,7 @@ SCRIPT_NAME = pl
 
 COMPILER = ${COMPILER}
 
-CFLAG = -std=c99
+CFLAG =
 STATIC_BUILD_FLAG = -static
 FLAG = 
 
