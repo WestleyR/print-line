@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Feb 19, 2019
+// date: Feb 23, 2019
 // version-1.0.0
 //
 // The Clear BSD License
@@ -12,13 +12,16 @@
 // This software is licensed under a Clear BSD License.
 //
 
+#include <errno.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
 
-#define VERSION "version-1.0.0-beta-20"
+#define VERSION "version-1.0.0-beta-22"
 #define DATE_MODIFIED "Feb 19, 2019"
 
 // colors/effects
@@ -146,7 +149,8 @@ void checkForMatch(char* input) {
     return;
 }
 
-char opt[200];
+//char opt[200];
+char *opt = "";
 int sstart = 0;
 int sopen = 0;
 int end = 0;
@@ -175,7 +179,12 @@ void check_char(char input) {
     }
 
     if (sopen == 1) {
-        strcat(opt, &input);
+        size_t len = strlen(opt);
+        char *str2 = malloc(len + 1 + 1 );
+        strcpy(str2, opt);
+        str2[len] = input;
+        str2[len + 1] = '\0';
+        opt = str2;
     }
 
     int l = strlen(opt);
@@ -349,7 +358,7 @@ int main(int argc, char* argv[]) {
 
     if (pipInput == 1) {
         FILE *fptr;
-        char c;
+//        char c;
         char* filename = "/dev/stdin";
   
         fptr = fopen(filename, "r");
@@ -359,18 +368,19 @@ int main(int argc, char* argv[]) {
         } 
   
         if (truePrint == 1) {
-            c = fgetc(fptr);
-            while (c != EOF) {
+            int c;
+            FILE *fp = fopen(filename, "rb");
+            while ((c = fgetc(fp)) != EOF) {
                 check_char(c);
-                c = fgetc(fptr);
             }
-            fclose(fptr);
+            fclose(fp);
         } else {
-            c = fgetc(fptr);
-            while (c != EOF) {
-                printf ("%c", c);
-                c = fgetc(fptr);
+            int c;
+            FILE *fp = fopen(filename, "rb");
+            while ((c = fgetc(fp)) != EOF) {
+                printf("%c", c);
             }
+            fclose(fp);
         }
     }
 
