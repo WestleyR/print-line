@@ -45,8 +45,8 @@ Click to download `pl` for your system:
   - [`darwin`](https://????)<br>
     `wget https://?????`
 
-  - [`armv7l`](https://?????)<br>
-    `wget https://??????`
+  - [`armv7l`](https://github.com/WestleyR/print-line/raw/master/pre-compiled/static/armv7l/pl)<br>
+    `wget https://github.com/WestleyR/print-line/raw/master/pre-compiled/static/armv7l/pl`
 
   - [manpage](https://????)<br>
     `wget https://?????`
