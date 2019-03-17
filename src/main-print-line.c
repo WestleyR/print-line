@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Feb 23, 2019
+// date: Mar 17, 2019
 // version-1.0.0
 //
 // The Clear BSD License
@@ -21,8 +21,8 @@
 #include <time.h>
 #include <sys/time.h>
 
-#define VERSION "version-1.0.0-beta-22"
-#define DATE_MODIFIED "Feb 19, 2019"
+#define VERSION "version-1.0.0-beta-23"
+#define DATE_MODIFIED "Mar 17, 2019"
 
 // colors/effects
 #define colorReset "\033[0m"
@@ -215,7 +215,7 @@ void printLogDate() {
     struct timeval miliseconds;
     gettimeofday(&miliseconds, NULL);
 
-    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, (long)miliseconds.tv_usec);
 //    printf("[%d-%02d-%02dT%02d:%02d:%02d.%.02ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
     return;
 }
