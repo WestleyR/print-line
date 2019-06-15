@@ -215,7 +215,7 @@ void printLogDate() {
     struct timeval miliseconds;
     gettimeofday(&miliseconds, NULL);
 
-    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
+    printf("[%d-%d-%d, %d:%d:%d.%ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, (long)miliseconds.tv_usec);
 //    printf("[%d-%02d-%02dT%02d:%02d:%02d.%.02ld] ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec, miliseconds.tv_usec);
     return;
 }

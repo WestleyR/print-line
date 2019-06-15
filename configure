@@ -167,7 +167,7 @@ SCRIPT_NAME = pl
 
 COMPILER = ${COMPILER}
 
-CFLAG =
+CFLAG = -Wall
 STATIC_BUILD_FLAG = -static
 FLAG = 
 
@@ -180,7 +180,7 @@ CODE_NAME = src/main-print-line.c
 SCRIPT_NAME = pl
 
 COMPILER = ${COMPILER}
-
+CFLAG = -Wall
 FLAG =
 
 EOF
