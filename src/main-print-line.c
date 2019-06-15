@@ -1,7 +1,7 @@
 // created by: WestleyR
 // email: westleyr@nym.hush.com
 // https://github.com/WestleyR/print-line
-// date: Feb 23, 2019
+// date: Mar 17, 2019
 // version-1.0.0
 //
 // The Clear BSD License
@@ -21,8 +21,8 @@
 #include <time.h>
 #include <sys/time.h>
 
-#define VERSION "version-1.0.0-beta-22"
-#define DATE_MODIFIED "Feb 19, 2019"
+#define VERSION "version-1.0.0-beta-23"
+#define DATE_MODIFIED "Mar 17, 2019"
 
 // colors/effects
 #define colorReset "\033[0m"
